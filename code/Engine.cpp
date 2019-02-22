@@ -5,13 +5,12 @@ Engine::Engine()
 	// Get the screen resolution
 	// and create an SFML window and view
 	Vector2f resolution;
-
 	resolution.x = VideoMode::getDesktopMode().width;
 	resolution.y = VideoMode::getDesktopMode().height;
 
 	m_Window.create(VideoMode(resolution.x, resolution.y),
-					"Thomas was late",
-					Style::Fullscreen);
+					"Thomas was late", Style::Fullscreen);
+
 	// Initialize the fullscreen view
 	m_MainView.setSize(resolution);
 	m_HudView.reset(
@@ -26,11 +25,22 @@ Engine::Engine()
 		FloatRect(0.001f, 0.001f, 0.498f, 0.988f));
 	m_BGRightView.setViewport(
 		FloatRect(0.5f, 0.001f, 0.499f, 0.998f));
+
+	// Can this graphics card use shaders?
+	if (!sf::Shader::isAvailable())
+	{
+		// Time to get a new PC
+		m_Window.close();
+	}
+
 	m_BackgroundTexture = TextureHolder::GetTexture(
 		"../graphics/background.png");
 
 	// Associate the sprite with the texture
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);
+
+	// Load the texture for the background vertex array
+	m_TextureTiles = TextureHolder::GetTexture("../graphics/tiles_sheet.png");
 }
 
 void Engine::run()
