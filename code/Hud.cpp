@@ -26,7 +26,7 @@ Hud::Hud()
     // Time
     m_TimeText.setFont(m_Font);
     m_TimeText.setCharacterSize(75);
-    m_TimeText.setColor(Color::White);
+    m_TimeText.setFillColor(Color::White);
     m_TimeText.setPosition(resolution.x - 150, 0);
     m_TimeText.setString("------");
 
